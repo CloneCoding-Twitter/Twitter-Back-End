@@ -11,4 +11,3 @@ router.post(
 );
 
 module.exports = router;
-("/api/article");

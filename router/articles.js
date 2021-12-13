@@ -10,5 +10,14 @@ router.post(
   articlesController.articlePost
 );
 
+router.get("/", articlesController.articleGet);
+
+router.put(
+  "/:articleId",
+  uploader.fields([{ name: "img", maxCount: 4 }]),
+  articlesController.articleUpdate
+);
+
+router.delete("/:articleId", articlesController.artiecleDelete);
 module.exports = router;
 ("/api/article");

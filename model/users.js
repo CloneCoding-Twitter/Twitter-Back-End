@@ -10,4 +10,8 @@ const creatUser = async ( loginId, nickname, password ) => {
   }
 };
 
-module.exports = { creatUser };
+const findUser = async ( id ) => {
+  return Users.findOne(id);
+}
+
+module.exports = { creatUser, findUser };

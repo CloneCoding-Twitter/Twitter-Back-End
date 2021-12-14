@@ -8,6 +8,9 @@ const ArticlesSchema = new Schema({
   img: {
     type: [String],
   },
+  nickname: {
+    type: String,
+  },
 });
 ArticlesSchema.virtual("id").get(function () {
   return this._id.toHexString();

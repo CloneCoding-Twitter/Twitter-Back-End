@@ -73,9 +73,6 @@ const login = async (req, res, next) => {
         .send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
       return;
     }
-    // if (){
-
-    // }
     const nickname = userCheck.nickname;
     const token = jwt.sign({ id: userCheck["id"] }, "hyeop-secret-key");
     res.status(200).send({

@@ -3,7 +3,7 @@ const connect = require("./schemas");
 const router = require("./router/index.js");
 
 const cors = require("cors");
-const port = 8080;
+const port = 3000;
 const app = express();
 // const corsOptions = {
 //   origin: "Eco_funding domain",

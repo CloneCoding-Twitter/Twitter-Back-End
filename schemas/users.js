@@ -5,15 +5,15 @@ const usersSchema = new Schema({
   loginId: {
     type: String,
     required: true,
-    unique: true
+    unique: true,
   },
   nickname: {
     type: String,
-    require: true
+    require: true,
   },
   password: {
     type: String,
-    require: true
+    require: true,
   },
 });
 usersSchema.virtual("id").get(function () {

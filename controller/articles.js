@@ -19,7 +19,6 @@ const articlePost = async (req, res, next) => {
 const articleGet = async (req, res, next) => {
   try {
     const articles = await articlesModel.findArticles();
-    console.log(articles);
     res.status(200).json({ result: articles });
   } catch (error) {
     console.log(error);
@@ -32,7 +31,6 @@ const articleUpdate = async (req, res, next) => {
     const { nickname } = res.locals.user;
     const { content } = req.body;
     const { articleId } = req.params;
-
     const article = await articlesModel.findArticle(articleId);
     if (article.nickname !== nickname) {
       res.sendStatus(400);

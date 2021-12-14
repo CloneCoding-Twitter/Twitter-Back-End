@@ -4,12 +4,15 @@ const { Schema } = mongoose;
 const ArticlesSchema = new Schema({
   content: {
     type: String,
+    required: true,
   },
   img: {
     type: [String],
+    required: true,
   },
   nickname: {
     type: String,
+    required: true,
   },
 });
 ArticlesSchema.virtual("id").get(function () {

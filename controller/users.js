@@ -6,7 +6,6 @@ const bcrypt = require("bcrypt");
 const idcheck = async (req, res) => {
   const loginId = req.body;
   const checkId = await userModel.findDb(loginId);
-  console.log(checkId);
   if (!checkId) {
     res.status(400).send({ errorMessage: "사용 가능한 아이디입니다" });
   } else {
@@ -29,9 +28,7 @@ const nickcheck = async (req, res) => {
 const signup = async (req, res) => {
   const { loginId, nickname, password, passwordCheck } = req.body;
   if (password !== passwordCheck) {
-    res
-      .status(400)
-      .send({ errorMessage: "비밀번호가 일치하지 않습니다." });
+    res.status(400).send({ errorMessage: "비밀번호가 일치하지 않습니다." });
     return;
   }
   const hashedPass = bcrypt.hashSync(password, 5);
@@ -46,25 +43,27 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   const { loginId, password } = req.body;
   const userCheck = await userModel.findDb({ loginId });
-  console.log(userCheck)
-  if (!userCheck || !password) { //비밀번호만 맞는 경우는 알려주지않음
+  const nickname = userCheck.nickname;
+  if (!userCheck || !password) {
+    //비밀번호만 맞는 경우는 알려주지않음
     res
       .status(400)
       .send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
     return;
   }
   const result = bcrypt.compareSync(password, userCheck.password);
-  console.log(result)
-  if(!result) {
+  if (!result) {
     res
       .status(400)
       .send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
     return;
   }
 
-  const token = jwt.sign({ id: userCheck["id"] }, "my-secret-key");
-  res.send({
+  const token = jwt.sign({ id: userCheck["id"] }, "hyeop-secret-key");
+  res.status(200).send({
     token,
+    loginId: loginId,
+    nickname: nickname,
   });
 };
 

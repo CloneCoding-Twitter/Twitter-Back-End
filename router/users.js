@@ -6,25 +6,18 @@ const { validate, validatck } = require("../middleware/validator");
 const router = express.Router();
 
 //영소문, 숫자 혼합 3~12자
-const validateId = [
-  body("loginId")
-    .matches(/^(?=.*[a-z])(?=.*\d)[a-z\d]{3,12}$/), 
-    validate
-];
+const validateId = [body("loginId").matches(/[a-z]+[A-Z0-9]*$/), validate];
 
 //길이: 최소 3글자, 10자 제한, 문자 숫자만 가능.
-const validateNick = [
-  body("nickname")
-    .matches(/^(?=.*[가-힣a-z?=.*\d])[가-힣a-z\d?=.*\d]{3,10}$/),
-    validate,
-];
+const validateNick = [body("nickname").matches(/[a-z]+[A-Z0-9]*$/), validate];
 
 //길이: 4~12자 제한
 //영대소문숫자특수문자 혼합
 const validatepass = [
-    body("password")
-    .matches( /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,12}$/),
-    validatck,
+  body("password").matches(
+    /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{4,12}$/
+  ),
+  validatck,
 ];
 
 //id check api

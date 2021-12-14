@@ -1,8 +1,9 @@
 const Articles = require("../schemas/articles");
 
-const createArticle = async ({ content, img }) => {
+const createArticle = async (content, img, nickname) => {
   try {
-    await Articles.create({ content, img });
+    console.log(content, img, nickname);
+    await Articles.create({ content: content, img: img, nickname: nickname });
     return;
   } catch (error) {
     console.log(error);

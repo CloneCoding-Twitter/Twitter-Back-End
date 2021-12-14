@@ -13,7 +13,7 @@ module.exports = (req, res, next) => {
       return;
     }
     const { id } = jwt.verify(tokenValue, "hyeop-secret-key");
-    Users.findOne({ id }).then((user) => {
+    Users.findOne({ _id: id }).then((user) => {
       res.locals.user = user;
       next();
     });

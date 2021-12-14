@@ -59,8 +59,7 @@ const login = async (req, res, next) => {
   try {
     const { loginId, password } = req.body;
     const userCheck = await userModel.findDb({ loginId });
-    const nickname = userCheck.nickname;
-    if (!userCheck || !password) {
+    if (!userCheck || !password || !loginId) {
       //비밀번호만 맞는 경우는 알려주지않음
       res
         .status(400)
@@ -74,7 +73,10 @@ const login = async (req, res, next) => {
         .send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
       return;
     }
+    // if (){
 
+    // }
+    const nickname = userCheck.nickname;
     const token = jwt.sign({ id: userCheck["id"] }, "hyeop-secret-key");
     res.status(200).send({
       token,

@@ -55,7 +55,7 @@ const articleUpdate = async (req, res, next) => {
   }
 };
 
-const artiecleDelete = (req, res, next) => {
+const artiecleDelete = async (req, res, next) => {
   const { articleId } = req.params;
   const { user } = res.locals.user;
   const article = await articlesModel.findArticle(articleId);

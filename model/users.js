@@ -1,8 +1,8 @@
 const Users = require("../schemas/users");
 
-const creatUser = async ( loginId, nickname, password ) => {
+const creatUser = async ( loginId, nickname, hashedPass ) => {
   try {
-    await Users.create({ loginId, nickname, password });
+    await Users.create({ loginId, nickname, password: hashedPass });
     return;
   } catch (error) {
     console.log(error);
@@ -10,4 +10,8 @@ const creatUser = async ( loginId, nickname, password ) => {
   }
 };
 
-module.exports = { creatUser };
+const findDb = async ( id ) => {
+  return Users.findOne(id);
+}
+
+module.exports = { creatUser, findDb };

@@ -9,11 +9,10 @@ const app = express();
 //   origin: "Eco_funding domain",
 //   optionsSuccessStatus: 200,
 // };
-
+app.use(cors()); // 빈칸으로 두면 모든 요청 허용
 app.use(express.json());
 app.use("/api", router);
 app.use(express.static("uploads"));
-app.use(cors()); // 빈칸으로 두면 모든 요청 허용
 
 app.use((req, res, next) => {
   res.sendStatus(404);

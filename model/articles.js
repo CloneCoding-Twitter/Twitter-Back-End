@@ -23,7 +23,7 @@ const findArticles = async () => {
 
 const findArticle = async (input) => {
   try {
-    const article = await Articles.findOne({ input });
+    const article = await Articles.findOne({ _id: input });
     return article;
   } catch (error) {
     console.log(error);

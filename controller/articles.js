@@ -5,6 +5,10 @@ const articlePost = async (req, res, next) => {
     const { nickname } = res.locals.user;
     const { content } = req.body;
     const img = [];
+    if (!content || !req.files.img) {
+      res.sendStatus(400);
+      return;
+    }
     req.files.img.forEach((v) => {
       img.push("localhost" + ":3000" + "/" + v.filename);
     });
@@ -33,6 +37,10 @@ const articleUpdate = async (req, res, next) => {
     const { articleId } = req.params;
     const article = await articlesModel.findArticle(articleId);
     if (article.nickname !== nickname) {
+      res.sendStatus(400);
+      return;
+    }
+    if (!content) {
       res.sendStatus(400);
       return;
     }

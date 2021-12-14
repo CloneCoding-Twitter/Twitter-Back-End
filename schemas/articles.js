@@ -14,6 +14,10 @@ const ArticlesSchema = new Schema({
     type: String,
     required: true,
   },
+  loginId: {
+    type: String,
+    required: true,
+  },
 });
 ArticlesSchema.virtual("id").get(function () {
   return this._id.toHexString();

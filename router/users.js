@@ -16,7 +16,13 @@ router.post("/idcheck", validateId, userController.idcheck);
 router.post("/nickcheck", validateNick, userController.nickcheck);
 
 //sign up api
-router.post("/signup", validatepass, userController.signup);
+router.post(
+  "/signup",
+  validateId,
+  validateNick,
+  validatepass,
+  userController.signup
+);
 
 //login api
 router.post("/login", userController.login);

@@ -2,7 +2,7 @@ const articlesModel = require("../model/articles");
 
 const articlePost = async (req, res, next) => {
   try {
-    const { nickname } = res.locals.user;
+    const { nickname, loginId } = res.locals.user;
     const { content } = req.body;
     const img = [];
     if (!content || !req.files.img) {
@@ -12,8 +12,14 @@ const articlePost = async (req, res, next) => {
     req.files.img.forEach((v) => {
       img.push("localhost" + ":3000" + "/" + v.filename);
     });
-    await articlesModel.createArticle(content, img, nickname);
-    res.sendStatus(201);
+    const article = await articlesModel.createArticle(
+      content,
+      img,
+      nickname,
+      loginId
+    );
+
+    res.status(200).json({ article });
   } catch (error) {
     console.log(error);
     next(error);
@@ -52,7 +58,8 @@ const articleUpdate = async (req, res, next) => {
       });
     }
     await articlesModel.updateAriticles(articleId, content, img);
-    res.sendStatus(200);
+    const editArticle = await articlesModel.findArticle(articleId);
+    res.status(200).json({ editArticle });
   } catch (error) {
     console.log(error);
     next(error);

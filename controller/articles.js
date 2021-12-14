@@ -15,7 +15,7 @@ const articlePost = async (req, res, next) => {
     res.sendStatus(201);
   } catch (error) {
     console.log(error);
-    res.sendStatus(400);
+    next(error);
   }
 };
 
@@ -26,16 +26,16 @@ const articleGet = async (req, res, next) => {
     res.status(200).json({ result: articles });
   } catch (error) {
     console.log(error);
-    res.sendStatus(400);
+    next(error);
   }
 };
 
 const articleUpdate = async (req, res, next) => {
   try {
     const { content } = req.body;
-    const { articleId } = req.params;
+    const { id } = req.params;
     const { user } = res.locals.user;
-    const article = await articlesModel.findArticle(articleId);
+    const article = await articlesModel.findArticle(id);
     if (article.nickname !== user.nickname) {
       res.sendStatus(400);
       return;
@@ -47,24 +47,29 @@ const articleUpdate = async (req, res, next) => {
         img.push("localhost" + ":3000" + "/" + v.filename);
       });
     }
-    await articlesModel.updateAriticles(articleId, content, img);
+    await articlesModel.updateAriticles(id, content, img);
     res.sendStatus(200);
   } catch (error) {
     console.log(error);
-    return error;
+    next(error);
   }
 };
 
-const artiecleDelete = (req, res, next) => {
-  const { articleId } = req.params;
-  const { user } = res.locals.user;
-  const article = await articlesModel.findArticle(articleId);
-  if (article.nickname !== user.nickname) {
-    res.sendStatus(400);
-    return;
+const artiecleDelete = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { user } = res.locals.user;
+    const article = await articlesModel.findArticle(id);
+    if (article.nickname !== user.nickname) {
+      res.sendStatus(400);
+      return;
+    }
+    await articlesModel.deleteArticles(id);
+    res.sendStatus(200);
+  } catch (error) {
+    console.log(error);
+    next(error);
   }
-  await articlesModel.deleteArticles(articleId);
-  res.sendStatus(200);
 };
 
 module.exports = { articlePost, articleGet, articleUpdate, artiecleDelete };

@@ -43,7 +43,6 @@ const signup = async (req, res) => {
 const login = async (req, res) => {
   const { loginId, password } = req.body;
   const userCheck = await userModel.findDb({ loginId });
-  const nickname = userCheck.nickname;
   if (!userCheck || !password) {
     //비밀번호만 맞는 경우는 알려주지않음
     res
@@ -59,6 +58,7 @@ const login = async (req, res) => {
     return;
   }
 
+  const nickname = userCheck.nickname;
   const token = jwt.sign({ id: userCheck["id"] }, "hyeop-secret-key");
   res.status(200).send({
     token,

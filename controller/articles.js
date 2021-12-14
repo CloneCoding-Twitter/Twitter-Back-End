@@ -40,6 +40,10 @@ const articleUpdate = async (req, res, next) => {
       res.sendStatus(400);
       return;
     }
+    if (!content) {
+      res.sendStatus(400);
+      return;
+    }
     let img = article.img;
     if (req.files.img) {
       img = [];

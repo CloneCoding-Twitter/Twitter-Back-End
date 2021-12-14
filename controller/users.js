@@ -1,10 +1,41 @@
 const userModel = require("../model/users");
 const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
+//id check api
+const idcheck = async (req, res) => {
+  const loginId = req.body;
+  const checkId = await userModel.findDb(loginId);
+  console.log(checkId);
+  if (!checkId) {
+    res.status(400).send({ errorMessage: "사용 가능한 아이디입니다" });
+  } else {
+    res.status(200).send({ errorMessage: "존재하는 아이디입니다" });
+  }
+};
+
+//nickname check api
+const nickcheck = async (req, res) => {
+  const nickname = req.body;
+  const checkNick = await userModel.findDb(nickname);
+  if (!checkNick) {
+    res.status(400).send({ errorMessage: "사용가능한 닉네임입니다" });
+  } else {
+    res.status(200).send({ errorMessage: "존재하는 닉네임입니다" });
+  }
+};
 
 // signup
 const signup = async (req, res) => {
-  const { loginId, nickname, password } = req.body;
-  await userModel.creatUser(loginId, nickname, password);
+  const { loginId, nickname, password, passwordCheck } = req.body;
+  if (password !== passwordCheck) {
+    res
+      .status(400)
+      .send({ errorMessage: "비밀번호가 일치하지 않습니다." });
+    return;
+  }
+  const hashedPass = bcrypt.hashSync(password, 5);
+  await userModel.creatUser(loginId, nickname, hashedPass);
 
   res.status(201).send({
     message: "회원가입을 축하드립니다",
@@ -14,15 +45,27 @@ const signup = async (req, res) => {
 // login
 const login = async (req, res) => {
   const { loginId, password } = req.body;
-  const userCheck = await userModel.findUser({ loginId });
-  if (!userCheck) {
-    res.status(400).send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
+  const userCheck = await userModel.findDb({ loginId });
+  console.log(userCheck)
+  if (!userCheck || !password) { //비밀번호만 맞는 경우는 알려주지않음
+    res
+      .status(400)
+      .send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
     return;
   }
+  const result = bcrypt.compareSync(password, userCheck.password);
+  console.log(result)
+  if(!result) {
+    res
+      .status(400)
+      .send({ errorMessage: "닉네임 또는 패스워드가 잘못됐습니다." });
+    return;
+  }
+
   const token = jwt.sign({ id: userCheck["id"] }, "my-secret-key");
   res.send({
     token,
   });
 };
 
-module.exports = { signup, login };
+module.exports = { signup, login, idcheck, nickcheck };

@@ -5,6 +5,10 @@ const articlePost = async (req, res, next) => {
     const { nickname } = res.locals.user;
     const { content } = req.body;
     const img = [];
+    if (!content || !req.files.img) {
+      res.sendStatus(400);
+      return;
+    }
     req.files.img.forEach((v) => {
       img.push("localhost" + ":3000" + "/" + v.filename);
     });

@@ -8,9 +8,9 @@ const idcheck = async (req, res, next) => {
     const loginId = req.body;
     const checkId = await userModel.findDb(loginId);
     if (!checkId) {
-      res.status(400).send({ errorMessage: "사용 가능한 아이디입니다" });
+      res.status(400).send({ result: "true" });
     } else {
-      res.status(200).send({ errorMessage: "존재하는 아이디입니다" });
+      res.status(200).send({ result: "false" });
     }
   } catch (error) {
     console.log(error);
@@ -24,9 +24,9 @@ const nickcheck = async (req, res, next) => {
     const nickname = req.body;
     const checkNick = await userModel.findDb(nickname);
     if (!checkNick) {
-      res.status(400).send({ errorMessage: "사용가능한 닉네임입니다" });
+      res.status(400).send({ result: "true" });
     } else {
-      res.status(200).send({ errorMessage: "존재하는 닉네임입니다" });
+      res.status(200).send({ result: "false" });
     }
   } catch (error) {
     console.log(error);

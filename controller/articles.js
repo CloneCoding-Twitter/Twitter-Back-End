@@ -18,7 +18,6 @@ const articlePost = async (req, res, next) => {
       nickname,
       loginId
     );
-
     res.status(200).json({ article });
   } catch (error) {
     console.log(error);
@@ -26,7 +25,7 @@ const articlePost = async (req, res, next) => {
   }
 };
 
-const articleGet = async (req, res, next) => {
+const articlesGet = async (req, res, next) => {
   try {
     const articles = await articlesModel.findArticles();
     res.status(200).json({ result: articles });
@@ -83,4 +82,21 @@ const artiecleDelete = async (req, res, next) => {
   }
 };
 
-module.exports = { articlePost, articleGet, articleUpdate, artiecleDelete };
+const articleGet = async (req, res, next) => {
+  try {
+    const { articleId } = req.params;
+    const article = await articlesModel.findArticle(articleId);
+    res.status(200).json({ article });
+  } catch (error) {
+    console.log(error);
+    next(error);
+  }
+};
+
+module.exports = {
+  articlePost,
+  articlesGet,
+  articleUpdate,
+  artiecleDelete,
+  articleGet,
+};

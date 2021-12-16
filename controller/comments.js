@@ -3,8 +3,8 @@ const commentsModel = require("../model/comments");
 const commentsGet = async (req, res, next) => {
   try {
     const { articleId } = req.params;
-    const comments = await commentsModel.findComments(articleId);
-    res.status(200).json({ comments });
+    const result = await commentsModel.findComments(articleId);
+    res.status(200).json({ result });
   } catch (error) {
     console.log(error);
     next(error);
@@ -21,13 +21,13 @@ const commentPost = async (req, res, next) => {
       res.sendStatus(400);
       return;
     }
-    const commentData = await commentsModel.createComment(
+    const result = await commentsModel.createComment(
       articleId,
       comment,
       nickname,
       loginId
     );
-    res.status(200).json({ commentData });
+    res.status(200).json({ result });
   } catch (error) {
     console.log(error);
     next(error);

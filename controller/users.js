@@ -8,9 +8,9 @@ const idcheck = async (req, res, next) => {
     const loginId = req.body;
     const checkId = await userModel.findDb(loginId);
     if (!checkId) {
-      res.status(400).send({ result: "true" });
+      res.status(200).send({ result: "true" });
     } else {
-      res.status(200).send({ result: "false" });
+      res.status(400).send({ result: "false" });
     }
   } catch (error) {
     console.log(error);
@@ -24,9 +24,9 @@ const nickcheck = async (req, res, next) => {
     const nickname = req.body;
     const checkNick = await userModel.findDb(nickname);
     if (!checkNick) {
-      res.status(400).send({ result: "true" });
+      res.status(200).send({ result: "true" });
     } else {
-      res.status(200).send({ result: "false" });
+      res.status(400).send({ result: "false" });
     }
   } catch (error) {
     console.log(error);

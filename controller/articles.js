@@ -10,7 +10,7 @@ const articlePost = async (req, res, next) => {
       return;
     }
     req.files.img.forEach((v) => {
-      img.push("localhost" + ":3000" + "/" + v.filename);
+      img.push("http://54.180.108.194" + "/" + v.filename);
     });
     const article = await articlesModel.createArticle(
       content,
@@ -53,7 +53,7 @@ const articleUpdate = async (req, res, next) => {
     if (req.files.img) {
       img = [];
       req.files.img.forEach((v) => {
-        img.push("localhost" + ":3000" + "/" + v.filename);
+        img.push("http://54.180.108.194" + "/" + v.filename);
       });
     }
     await articlesModel.updateAriticles(articleId, content, img);
@@ -85,8 +85,8 @@ const artiecleDelete = async (req, res, next) => {
 const articleGet = async (req, res, next) => {
   try {
     const { articleId } = req.params;
-    const article = await articlesModel.findArticle(articleId);
-    res.status(200).json({ article });
+    const result = await articlesModel.findArticle(articleId);
+    res.status(200).json({ result });
   } catch (error) {
     console.log(error);
     next(error);

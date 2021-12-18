@@ -18,7 +18,7 @@ const createArticle = async (content, img, nickname, loginId) => {
 const findArticles = async () => {
   try {
     const articles = await Articles.find({});
-    return articles;
+    return articles.reverse();
   } catch (error) {
     console.log(error);
     return error;

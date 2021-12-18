@@ -62,69 +62,7 @@
 
 # 📌 API 명세서
 
-- 연애의 참견 API
-  | 페이지 | 기능 | Method | URL | Request | Response |
-  | --- | --- | --- | --- | --- | --- |
-  | 회원가입 | 회원가입 | POST | /api/user/signupme | {
-  loginId:
-  nickname:
-  password:
-  passwordCheck:
-  } | |
-  | | 아이디 중복확인 | POST | /api/user/idcheck | {
-  loginId:
-  } | |
-  | | 닉네임 중복확인 | POST | /api/user/nickcheck | {
-  nickname:
-  } | |  
-   | 로그인 | 로그인 | POST | /api/user/login | {
-  loginId:
-  password:
-  }| {
-  loginId:
-  nickname:
-  } | |
-  | 메인페이지 | 게시글 작성 | POST | /api/article |{
-  formdata: {
-  content:
-  img:
-  }
-  }| {
-  article:{
-  id:
-  loginId:
-  nickname:
-  content:
-  image:
-  }
-  }|
-  | | 게시글 삭제 | DELETE | DELETE | | |
-  | 상세페이지 | 상세페이지 불러오기 | GET | /api/article/:articleId | | {
-  article: {
-  id:
-  loginId:
-  nickname:
-  content:
-  img:
-  }
-  }|
-  | | 코멘트 불러오기 | GET | /api/article/:articleId/comment | | {
-  comments:{
-  id:
-  loginId:
-  nickname:
-  comment
-  }
-  }|
-  | | 코멘트 작성 | POST | /api/article/:articleId/comment |{
-  comment:
-  } | {
-  id:
-  comment:
-  loginId:
-  nickname:
-  } | |
-  | | 코멘트 삭제 | DELETE | /api/article/:articleId/comment/:commentId | | |
+[API 명세서 바로가기](https://www.notion.so/23h/Starting-Assignment-6-077c6d26c2824e2c8fbdfa20ac371a7e)
 
 <br />
 

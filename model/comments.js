@@ -3,7 +3,7 @@ const Comments = require("../schemas/comments");
 const findComments = async (articleId) => {
   try {
     const comments = await Comments.find({ articleId });
-    return comments;
+    return comments.reverse();
   } catch (error) {
     console.log(error);
     return error;

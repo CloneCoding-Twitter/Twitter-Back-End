@@ -13,11 +13,11 @@
 ### 🖥️ Twitter Page View!
 
 <p>
-  <img src="./README/1.png"  width="50%" />
-  <img src="./README/2.png" width="50%" />
-  <img src="./README/3.png"  width="50%" />
-  <img src="./README/4.png" width="50%" />
-  <img src="./README/5.png"  width="50%" />
+  <img src="./README/1.png"  width="40%" />
+  <img src="./README/2.png" width="40%" />
+  <img src="./README/3.png"  width="40%" />
+  <img src="./README/4.png" width="40%" />
+  <img src="./README/5.png"  width="40%" />
 </p>
 
 # 👥 멤버
